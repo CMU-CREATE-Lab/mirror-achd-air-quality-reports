@@ -1,5 +1,16 @@
 #!/usr/bin/env python
 
+import os
+os.chdir(os.path.dirname(__file__))
+
+import fcntl
+lockfile = open('parse-and-upload-achd.lockfile','w')
+try:
+    fcntl.flock(lockfile, fcntl.LOCK_EX | fcntl.LOCK_NB)
+except IOError:
+    print 'Instance of %s is already running.  Exiting.' % __file__
+    exit(0)
+
 # Execute this cell to define the functions for calling the Fluxtream upload API for the 
 # credentials entered below
 import json, subprocess
@@ -319,7 +330,7 @@ def process_pdf(pdf_path):
     reset_log()
     log('Parsing and uploading %s' % pdf_path)
     log('Converting %s to xml' % pdf_path)
-    xml_content = subprocess.check_output(['pdf2txt.py', '-t', 'xml', pdf_path])
+    xml_content = subprocess.check_output(['pdf2txt', '-t', 'xml', pdf_path])
     print 'pdf length %d converted to xml length %d' % (os.stat(pdf_path).st_size, len(xml_content))
 
     doc = xml.dom.minidom.parseString(xml_content)
