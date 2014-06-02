@@ -1,0 +1,167 @@
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="js/grapher/grapher2.nocache.js"></script>
+<style type="text/css">
+body {
+   font-family: "Gill Sans Light", Verdana, Arial, sans-serif !important;
+   font-size: 10pt !important;
+}
+
+</style>
+<script>
+var series = [];
+var dateAxis;
+
+window.grapherLoad = function() {
+    dateAxis = new DateAxis("dateAxis", "horizontal", {min: 1398916800, max: 1401595200});
+
+    series[0] = {}
+    series[0].axis = new NumberAxis('series0axis', "vertical", {min: -0.01, max: 0.05});
+
+    var datasource = function(level, offset, successCallback, failureCallback) {
+      $.ajax({
+        url:'http://local-api-proxy.fluxtream.org/api/bodytrack/tiles/1968/ACHD_Liberty.H2S_PPM/'+level+'.'+offset+'.json', 
+        success:function(data){successCallback(JSON.stringify(data))},
+        failure:failureCallback,
+        headers: {Authorization: 'Basic ' + btoa('achd:achdmirror')}
+      });
+    }
+    var plot = new DataSeriesPlot(datasource, dateAxis, series[0].axis, {});
+    plot.setStyle(
+          {
+             "styles" : [
+                {
+                   "type" : "line",
+                   "lineWidth" : 1,
+                   "show" : true,
+                   "color" : "#0000ff"
+                },
+                {
+                   "type" : "lollipop",
+                   "lineWidth" : 1,
+                   "radius" : 0,
+                   "fill" : false,
+                   "show" : true,
+                   "color" : "#0000ff"
+                }
+             ],
+             highlight : {
+                "lineWidth" : 1,
+                "styles" : [
+                   {
+                      "type" : "lollipop",
+                      "color" : "#ff0000",
+                      "radius" : 1,
+                      "lineWidth" : 1,
+                      "fill" : false
+                   },
+                   {
+                      "show" : true,
+                      "type" : "value",
+                      "fillColor" : "#ff0000",
+                      "marginWidth" : 10,
+                      "font" : "7pt Helvetica,Arial,Verdana,sans-serif",
+                      "verticalOffset" : 7,
+                      "numberFormat" : "###,##0.0##"
+                   }
+                ]
+             }
+          }
+    );
+    series[0].pc = new PlotContainer("series0", false, [plot]);
+
+
+    series[1] = {}
+    series[1].axis = new NumberAxis('series1axis', "vertical", {min: -0.01, max: 0.05});
+
+    var datasource = function(level, offset, successCallback, failureCallback) {
+      $.ajax({
+        url:'http://local-api-proxy.fluxtream.org/api/bodytrack/tiles/1968/ACHD_Avalon.H2S_PPM/'+level+'.'+offset+'.json', 
+        success:function(data){successCallback(JSON.stringify(data))},
+        failure:failureCallback,
+        headers: {Authorization: 'Basic ' + btoa('achd:achdmirror')}
+      });
+    }
+    var plot = new DataSeriesPlot(datasource, dateAxis, series[1].axis, {});
+    plot.setStyle(
+          {
+             "styles" : [
+                {
+                   "type" : "line",
+                   "lineWidth" : 1,
+                   "show" : true,
+                   "color" : "#0000ff"
+                },
+                {
+                   "type" : "lollipop",
+                   "lineWidth" : 1,
+                   "radius" : 0,
+                   "fill" : false,
+                   "show" : true,
+                   "color" : "#0000ff"
+                }
+             ],
+             highlight : {
+                "lineWidth" : 1,
+                "styles" : [
+                   {
+                      "type" : "lollipop",
+                      "color" : "#ff0000",
+                      "radius" : 1,
+                      "lineWidth" : 1,
+                      "fill" : false
+                   },
+                   {
+                      "show" : true,
+                      "type" : "value",
+                      "fillColor" : "#ff0000",
+                      "marginWidth" : 10,
+                      "font" : "7pt Helvetica,Arial,Verdana,sans-serif",
+                      "verticalOffset" : 7,
+                      "numberFormat" : "###,##0.0##"
+                   }
+                ]
+             }
+          }
+    );
+    series[1].pc = new PlotContainer("series1", false, [plot]);
+
+
+
+
+    $(window).resize(setSizes);
+    setSizes();
+};
+
+function setSizes() {
+   dateAxis.setSize($('#dateAxis').width(), $("#dateAxis").height(), SequenceNumber.getNext());
+   for (var i = 0; i < 2; i++) {
+     series[i].axis.setSize($('#series'+i+'axis').width(), $('#series'+i+'axis').height(), SequenceNumber.getNext());
+     series[i].pc.setSize($('#series'+i).width(), $('#series'+i).height(), SequenceNumber.getNext());
+   }
+}
+
+function displayValue(val) {
+   $("#valueLabel").html(val ? val['dateString'] + " " + val['valueString'] : "");
+}
+
+</script>
+</head>
+<body>
+<div style="width:100%; height:39px">
+<div id="dateAxis" style="position: fixed; left:100px; right:30px; height:37px; border:1px solid black"></div>
+</div>
+<div style="width:100%; height:75px; margin-top:-1px">
+<div id="series0title" style="position: fixed; left:0px; width:99px; height:73px; border:1px solid black"></div>
+<div id="series0" style="position: fixed; left:100px; right:30px; height:73px; border:1px solid black"></div>
+<div id="series0axis" style="position: fixed; right:0px; width:29px; height:73px; border:1px solid black"></div>
+</div>
+<div style="width:100%; height:75px; margin-top:-1px">
+<div id="series1title" style="position: fixed; left:0px; width:99px; height:73px; border:1px solid black"></div>
+<div id="series1" style="position: fixed; left:100px; right:30px; height:73px; border:1px solid black"></div>
+<div id="series1axis" style="position: fixed; right:0px; width:29px; height:73px; border:1px solid black"></div>
+</div>
+<canvas id="narrow" style="width:100%; height:73px"></canvas>
+</body>
+</html>
