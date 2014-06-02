@@ -21,7 +21,7 @@ window.grapherLoad = function() {
 
     var datasource = function(level, offset, successCallback, failureCallback) {
       $.ajax({
-        url:'http://local-api-proxy.fluxtream.org/api/bodytrack/tiles/1968/ACHD_Liberty.H2S_PPM/'+level+'.'+offset+'.json', 
+        url:'http://fluxtream-api-proxy.cmucreatelab.org/api/bodytrack/tiles/1968/ACHD_Liberty.H2S_PPM/'+level+'.'+offset+'.json', 
         success:function(data){successCallback(JSON.stringify(data))},
         failure:failureCallback,
         headers: {Authorization: 'Basic ' + btoa('achd:achdmirror')}
@@ -77,7 +77,7 @@ window.grapherLoad = function() {
 
     var datasource = function(level, offset, successCallback, failureCallback) {
       $.ajax({
-        url:'http://local-api-proxy.fluxtream.org/api/bodytrack/tiles/1968/ACHD_Avalon.H2S_PPM/'+level+'.'+offset+'.json', 
+        url:'http://fluxtream-api-proxy.cmucreatelab.org/api/bodytrack/tiles/1968/ACHD_Avalon.H2S_PPM/'+level+'.'+offset+'.json', 
         success:function(data){successCallback(JSON.stringify(data))},
         failure:failureCallback,
         headers: {Authorization: 'Basic ' + btoa('achd:achdmirror')}
