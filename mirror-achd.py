@@ -44,7 +44,7 @@ def mirror_now(source, dest_dir, tmp_dir):
 
     start_time = time.time()
     try:
-        response = urllib2.urlopen(source).read()
+        response = urllib2.urlopen(source, timeout=600).read()
     except urllib2.HTTPError as e:
         log.write("%s: Couldn't read %s because %s\n" % (now(), source, e))
         log.flush()
