@@ -2,3 +2,6 @@ mirror
 upload-to-fluxtream
 parse-and-upload-achd.lockfile
 *~
+.ipynb_checkpoints
+upload-to-esdr
+parse-achd.lockfile
