@@ -5,3 +5,4 @@ parse-and-upload-achd.lockfile
 .ipynb_checkpoints
 upload-to-esdr
 parse-achd.lockfile
+parse-and-upload-achd.ipynb.log
