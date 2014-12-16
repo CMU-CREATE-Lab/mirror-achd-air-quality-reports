@@ -1,0 +1,8 @@
+# When adding or changing files in /etc/crond.d, be sure to
+# sudo service cron reload
+#
+# You can follow along to see what commands are started by cron like so:
+# tail -f /var/log/syslog | grep CRON
+
+# Try to parse and upload ACHD report every minute
+*/1 * * * * rsargent /home/rsargent/anaconda/bin/python /usr4/web/data.cmucreatelab.org/mirror-achd-air-quality-reports-esdr/python-utils/run-notebook.py /usr4/web/data.cmucreatelab.org/mirror-achd-air-quality-reports-esdr/parse-and-upload-achd.ipynb
