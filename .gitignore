@@ -7,3 +7,4 @@ upload-to-esdr
 parse-achd.lockfile
 parse-and-upload-achd.ipynb.log
 esdr-auth.json
+parse-and-upload-achd.ipynb.lock
