@@ -1,9 +1,15 @@
 mirror-achd-air-quality-reports
 ===============================
 
-Mirror Allegheny County air quality reports.  ACHD updates this report periodically,
-but only makes the most recent report available on its website.  mirror-achd.py is intended to be run
-from crontab, and double-checks that the most recent report has actually changed prior to writing to the mirror.
+Mirror Allegheny County air quality reports from two sources:
 
-Mirrored reports are available at http://data.cmucreatelab.org/allegheny-county-health-district-air-quality-report-mirror/
+NEW:  Using sftp, we download CSV reports
+
+OLD:  Using http, we download PDF reports
+
+In the past, we parsed the PDF reports, but when the parsing broke, we moved to CSV with ACHD's help.
+
+mirror-csv:  this contains the mirrored CSV reports
+
+mirror:  this contains the (OLD) mirrored PDF reports
 

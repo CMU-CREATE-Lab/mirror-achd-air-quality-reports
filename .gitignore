@@ -8,3 +8,10 @@ parse-achd.lockfile
 parse-and-upload-achd.ipynb.log
 esdr-auth.json
 parse-and-upload-achd.ipynb.lock
+achd-ftp-passwd-do-not-check-in.txt
+mirror-csv
+tmp
+mirror-achd-csv.ipynb.lock
+mirror-achd-csv.ipynb.log
+parse-and-upload-achd-csv.ipynb.lock
+parse-and-upload-achd-csv.ipynb.log
