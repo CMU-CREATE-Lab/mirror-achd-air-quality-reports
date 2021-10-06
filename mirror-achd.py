@@ -8,7 +8,7 @@ import tempfile
 import time
 import urllib2
 
-source_url = "http://www.achd.net/airqual/DailySummary.PDF"
+source_url = "https://alleghenycounty.us/hd/DailySummary.PDF"
 
 
 os.chdir(os.path.dirname(__file__))
